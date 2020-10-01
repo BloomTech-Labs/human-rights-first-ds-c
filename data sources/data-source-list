@@ -4,3 +4,5 @@ https://mappingpoliceviolence.org/ # i downloaded this csv
 
 https://incidents.846policebrutality.com/ #api used in the past
 
+https://www.kaggle.com/jpmiller/police-violence-in-the-us?select=fatal_encounters_dot_org.csv  # Kaggle fatalencounters dataset
+https://fatalencounters.org  # Parent website for the above Kaggle dataset
