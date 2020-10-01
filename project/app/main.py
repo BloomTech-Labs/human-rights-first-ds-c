@@ -60,8 +60,8 @@ nlp = spacy.load('en_core_web_sm')
 load_dotenv()
 
 app = FastAPI(
-    title='Human Rights First Data Science API',
-    description='Returns posts from Reddit\'s r/news subreddit on police brutality',
+    title='Labs 17 Human Rights First-C DS API',
+    description='Returns incident data from a pool of datasets run through a machine learning model.',
     version='0.5',
     docs_url='/',
 )
