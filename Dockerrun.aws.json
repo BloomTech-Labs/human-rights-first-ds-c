@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "zacharysluck/labs25",
+    "Name": "kristineyw/labs27hrfc",
     "Update": "true"
   },
   "Ports": [
