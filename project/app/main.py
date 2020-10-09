@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from fastapi_utils.tasks import repeat_every
 
-from api import predict, viz, getdata
+from app.api import predict, viz, getdata
 
 from pydantic import BaseModel, Field, validator
 import pandas as pd
