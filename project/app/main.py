@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from fastapi_utils.tasks import repeat_every
 
-from app.api import predict, viz, getdata
+from api import predict, viz, getdata
 
 from pydantic import BaseModel, Field, validator
 import pandas as pd
@@ -216,12 +216,13 @@ def run_update() -> None:
         else:
             geo_entry['lat'] = row['lat'][0]
             geo_entry['long'] = row['lng'][0]
-        geo_list.append(geo_entry)
+        # geo_list.append(geo_entry)
 
     # loop ends, add cities and states onto dataframe
     df['city'] = city_list
     df['state'] = state_list
-    df['geocoding'] = geo_list
+    df['lat'] = geo_entry['lat']
+    df['long'] = geo_entry['long']
 
     # drop any columns with null entries for location
     df = df.dropna()
