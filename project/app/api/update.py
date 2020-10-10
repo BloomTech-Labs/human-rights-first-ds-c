@@ -41,7 +41,7 @@ for state in list(locs_df.admin_name.unique()):
 
 # police brutality indentifying nlp
 model_path = os.path.join(os.path.dirname(
-    __file__), '..', '..', 'model.pkl')
+    __file__), '..', '..', 'hrfc_rfmodel_v1.pkl')
 model_file = open(model_path, 'rb')
 pipeline = pickle.load(model_file)
 model_file.close()
@@ -62,10 +62,12 @@ async def update():
     '''
     Update backlog database with data from reddit.
     '''
+
+
     # globalize these variables because I need to
     PRAW_CLIENT_ID = os.getenv('PRAW_CLIENT_ID')
     PRAW_CLIENT_SECRET = os.getenv('PRAW_CLIENT_SECRET')
-    PRAW_USER_AGENT = os.getenv('PRAW_USER_AGENT')
+    PRAW_USER_AGENT =  os.getenv('PRAW_USER_AGENT')
 
     reddit = praw.Reddit(
         client_id=PRAW_CLIENT_ID,
@@ -103,9 +105,9 @@ async def update():
     df['date'] = date_list
 
     # drop any articles with missing data columns
-    df = df.dropna()
-    df = df.reset_index()
-    df = df.drop(columns='index')
+    # df = df.dropna()
+    # df = df.reset_index()
+    # df = df.drop(columns='index')
 
     # use NLP model to filter posts
     df['is_police_brutality'] = pipeline.predict(df['title'])
