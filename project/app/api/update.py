@@ -63,7 +63,6 @@ async def update():
     Update backlog database with data from reddit.
     '''
 
-
     # globalize these variables because I need to
     PRAW_CLIENT_ID = os.getenv('PRAW_CLIENT_ID')
     PRAW_CLIENT_SECRET = os.getenv('PRAW_CLIENT_SECRET')
@@ -103,11 +102,6 @@ async def update():
         date_list.append(article.publish_date)
     df['text'] = content_list
     df['date'] = date_list
-
-    # drop any articles with missing data columns
-    # df = df.dropna()
-    # df = df.reset_index()
-    # df = df.drop(columns='index')
 
     # use NLP model to filter posts
     df['is_police_brutality'] = pipeline.predict(df['title'])
@@ -210,13 +204,13 @@ async def update():
     # cleanup to match 846 api
     def listify(text):
         return [text]
-    df['links'] = df['url'].apply(listify)
-    df['description'] = df['text']
+    df['src'] = df['url'].apply(listify)
+    df['desc'] = df['text']
     df = df.drop(columns=['tokens', 'text'])
     df = df[[
         'id', 'state', 'city',
-        'date', 'title', 'description',
-        'links', 'lat', 'long'
+        'date', 'title', 'desc',
+        'src', 'lat', 'long'
     ]]
 
     # save the file to a local csv

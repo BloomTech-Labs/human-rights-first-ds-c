@@ -27,11 +27,9 @@ locs_path = os.path.join(os.path.dirname(
     __file__), '..', 'cities_states.csv')
 locs_df = pd.read_csv(locs_path)
 
-
 def lowerify(text):
     # fix up geolocation dataframe a little
     return text.lower()
-
 
 locs_df = locs_df.drop(columns=['Unnamed: 0', 'country'])
 locs_df['city_ascii'] = locs_df['city_ascii'].apply(lowerify)
@@ -80,7 +78,6 @@ def run_update() -> None:
     Update backlog database with data from reddit.
     '''
 
-
     # globalize these variables because I need to
     PRAW_CLIENT_ID = os.getenv('PRAW_CLIENT_ID')
     PRAW_CLIENT_SECRET = os.getenv('PRAW_CLIENT_SECRET')
@@ -120,11 +117,6 @@ def run_update() -> None:
         date_list.append(article.publish_date)
     df['text'] = content_list
     df['date'] = date_list
-
-    # drop any articles with missing data columns
-    # df = df.dropna()
-    # df = df.reset_index()
-    # df = df.drop(columns='index')
 
     # use NLP model to filter posts
     df['is_police_brutality'] = pipeline.predict(df['title'])
@@ -227,13 +219,13 @@ def run_update() -> None:
     # cleanup to match 846 api
     def listify(text):
         return [text]
-    df['links'] = df['url'].apply(listify)
-    df['description'] = df['text']
+    df['src'] = df['url'].apply(listify)
+    df['desc'] = df['text']
     df = df.drop(columns=['tokens', 'text'])
     df = df[[
         'id', 'state', 'city',
-        'date', 'title', 'description',
-        'links', 'lat', 'long'
+        'date', 'title', 'desc',
+        'src', 'lat', 'long'
     ]]
 
     # save the file to a local csv
@@ -242,7 +234,6 @@ def run_update() -> None:
         200,
         "Backlog Updated at %s with %s entries" % (datetime.now(), df.shape[0])
     )
-
 
 app.add_middleware(
     CORSMiddleware,

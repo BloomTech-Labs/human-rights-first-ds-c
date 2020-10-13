@@ -18,5 +18,5 @@ async def send_data():
     dataframe: JSON String
     """
 
-    return df.to_json(orient="split")
+    return df.to_json()
 
