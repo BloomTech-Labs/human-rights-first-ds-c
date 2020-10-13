@@ -125,13 +125,11 @@ async def update():
     # figure out which city and state the article takes place in
     city_list = []
     state_list = []
-    geo_list = []
+    lat_list = []
+    long_list = []
     for tokens in df['tokens']:
         # set up Counter
         c = Counter(tokens)
-
-        # set up geolocation dict for geo list
-        geo_entry = {'lat': None, 'long': None}
 
         # count which states come back the most, if any
         state_counts = {}
@@ -154,7 +152,8 @@ async def update():
         if max_state is None:
             city_list.append(None)
             state_list.append(None)
-            geo_list.append(geo_entry)
+            lat_list.append(None)
+            long_list.append(None)
             continue
 
         max_city = None
@@ -177,7 +176,8 @@ async def update():
         if max_city is None:
             city_list.append(None)
             state_list.append(None)
-            geo_list.append(geo_entry)
+            lat_list.append(None)
+            long_list.append(None)
             continue
 
         # the city and state should be known now
@@ -193,14 +193,14 @@ async def update():
         if row.empty:
             pass
         else:
-            geo_entry['lat'] = row['lat'][0]
-            geo_entry['long'] = row['lng'][0]
-        geo_list.append(geo_entry)
+            lat_list.append(row['lat'][0])
+            long_list.append(row['lng'][0])
 
     # loop ends, add cities and states onto dataframe
     df['city'] = city_list
     df['state'] = state_list
-    df['geocoding'] = geo_list
+    df['lat'] = lat_list
+    df['long'] = long_list
 
     # drop any columns with null entries for location
     df = df.dropna()
@@ -216,11 +216,11 @@ async def update():
     df = df[[
         'id', 'state', 'city',
         'date', 'title', 'description',
-        'links', 'geocoding'
+        'links', 'lat', 'long'
     ]]
 
     # save the file to a local csv
-    df.to_csv(backlog_path, index=False)
+    df.to_csv(backlog_path, index=False, )
     return HTTPException(
         200,
         "Backlog Updated at %s with %s entries" % (datetime.now(), df.shape[0])
