@@ -63,7 +63,6 @@ async def update():
     Update backlog database with data from reddit.
     '''
 
-
     # globalize these variables because I need to
     PRAW_CLIENT_ID = os.getenv('PRAW_CLIENT_ID')
     PRAW_CLIENT_SECRET = os.getenv('PRAW_CLIENT_SECRET')
@@ -104,11 +103,6 @@ async def update():
     df['text'] = content_list
     df['date'] = date_list
 
-    # drop any articles with missing data columns
-    # df = df.dropna()
-    # df = df.reset_index()
-    # df = df.drop(columns='index')
-
     # use NLP model to filter posts
     df['is_police_brutality'] = pipeline.predict(df['title'])
     df = df[df['is_police_brutality'] == 1]
@@ -125,13 +119,11 @@ async def update():
     # figure out which city and state the article takes place in
     city_list = []
     state_list = []
-    geo_list = []
+    lat_list = []
+    long_list = []
     for tokens in df['tokens']:
         # set up Counter
         c = Counter(tokens)
-
-        # set up geolocation dict for geo list
-        geo_entry = {'lat': None, 'long': None}
 
         # count which states come back the most, if any
         state_counts = {}
@@ -154,7 +146,8 @@ async def update():
         if max_state is None:
             city_list.append(None)
             state_list.append(None)
-            geo_list.append(geo_entry)
+            lat_list.append(None)
+            long_list.append(None)
             continue
 
         max_city = None
@@ -177,7 +170,8 @@ async def update():
         if max_city is None:
             city_list.append(None)
             state_list.append(None)
-            geo_list.append(geo_entry)
+            lat_list.append(None)
+            long_list.append(None)
             continue
 
         # the city and state should be known now
@@ -193,14 +187,14 @@ async def update():
         if row.empty:
             pass
         else:
-            geo_entry['lat'] = row['lat'][0]
-            geo_entry['long'] = row['lng'][0]
-        geo_list.append(geo_entry)
+            lat_list.append(row['lat'][0])
+            long_list.append(row['lng'][0])
 
     # loop ends, add cities and states onto dataframe
     df['city'] = city_list
     df['state'] = state_list
-    df['geocoding'] = geo_list
+    df['lat'] = lat_list
+    df['long'] = long_list
 
     # drop any columns with null entries for location
     df = df.dropna()
@@ -210,17 +204,17 @@ async def update():
     # cleanup to match 846 api
     def listify(text):
         return [text]
-    df['links'] = df['url'].apply(listify)
-    df['description'] = df['text']
+    df['src'] = df['url'].apply(listify)
+    df['desc'] = df['text']
     df = df.drop(columns=['tokens', 'text'])
     df = df[[
         'id', 'state', 'city',
-        'date', 'title', 'description',
-        'links', 'geocoding'
+        'date', 'title', 'desc',
+        'src', 'lat', 'long'
     ]]
 
     # save the file to a local csv
-    df.to_csv(backlog_path, index=False)
+    df.to_csv(backlog_path, index=False, )
     return HTTPException(
         200,
         "Backlog Updated at %s with %s entries" % (datetime.now(), df.shape[0])
