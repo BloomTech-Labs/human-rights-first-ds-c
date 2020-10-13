@@ -10,13 +10,12 @@ df = pd.read_csv(locs_path)
 
 @router.post("/senddata/")
 async def send_data():
-    """
 
-    Convert data to useable json format 
+    """
+    Convert data to useable json format
 
     ### Response
-    dataframe: JSON String
+    dateframe: JSON String
     """
 
     return df.to_json()
-
