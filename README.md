@@ -53,13 +53,18 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 
 ### Data Science API built using:
 
+- Python
+- Docker
+- FastAPI
+- AWS Elastic Beanstalk
+
 #### _Data Science goes here_
 
 🚫 Why did you choose this framework?
 
-- Works well with FastAPI
-- Recommended to us
-- Wanted to learn an in-demand framework
+- Wanted to gain insight to AWS
+- Docker makes environments easier
+- FastAPI has been gaining traction over Flask
 
 🚫List the rest of the data science features and libraries in the same format as the framework above.
 
@@ -68,7 +73,8 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 - spacy
 - nltk
 - PRAW
-- Tweepy
+- Plotly
+
 
 #### Data Science API deployed to AWS
 
@@ -91,10 +97,6 @@ We are sending json objects to the backend with information about instances of p
 ## 2️⃣ PRAW
 
 PRAW, The Python Reddit API Wrapper, makes it easy for users to analyze Reddit data. We used PRAW to scrape Reddit for potential instances of police of force.
-
-## 3️⃣ Tweepy
-
-Tweepy is a Python library that allows users to access the Twitter API. We used Tweepy to scan Twitter to find instances of police use of force.
 
 # 3️⃣ Environment Variables
 
