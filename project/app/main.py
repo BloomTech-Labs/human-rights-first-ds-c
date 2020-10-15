@@ -2,8 +2,8 @@ from fastapi import FastAPI, APIRouter, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from fastapi_utils.tasks import repeat_every
-# from app.api import predict, viz, getdata, senddata # For deployment
-from api import predict, viz, getdata#, senddata # For local environment
+from app.api import predict, viz, getdata, senddata # For deployment
+# from api import predict, viz, getdata#, senddata # For local environment
 from pydantic import BaseModel, Field, validator
 import pandas as pd
 import praw
