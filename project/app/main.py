@@ -2,10 +2,8 @@ from fastapi import FastAPI, APIRouter, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from fastapi_utils.tasks import repeat_every
-
-from app.api import predict, viz, getdata, senddata # For deployment
-# from api import predict, viz, getdata, senddata # For local environment
-
+# from app.api import predict, viz, getdata, senddata # For deployment
+from api import predict, viz, getdata#, senddata # For local environment
 from pydantic import BaseModel, Field, validator
 import pandas as pd
 import praw
@@ -59,7 +57,7 @@ nlp = spacy.load('en_core_web_sm')
 load_dotenv()
 
 app = FastAPI(
-    title='Labs 17 Human Rights First-C DS API',
+    title='Labs 27 Human Rights First-C DS API',
     description='Returns incident data from a pool of datasets run through a machine learning model.',
     version='0.5',
     docs_url='/',
@@ -68,7 +66,7 @@ app = FastAPI(
 app.include_router(predict.router)
 app.include_router(viz.router)
 app.include_router(getdata.router)
-app.include_router(senddata.router)
+# app.include_router(senddata.router)
 
 
 @app.on_event('startup')
