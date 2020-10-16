@@ -3,6 +3,7 @@ import pandas as pd
 from .update import backlog_path
 from ast import literal_eval
 import os
+import json
 
 router = APIRouter()
 
@@ -20,12 +21,11 @@ async def getdata():
 
     df = pd.read_csv(locs_path)
 
-    df = df.drop(columns="Unnamed: 0").reset_index()
-
     """
     Convert data to useable json format
     ### Response
     dateframe: JSON String
     """
-
-    return df.to_json(orient="records")
+    result = df.to_json(orient="records")
+    parsed = json.loads(result)  
+    return json.dumps(parsed)
