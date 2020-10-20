@@ -1,4 +1,4 @@
-# Projects
+# Project
 
 This directory contains all files directly important to the final product including important csv files, pickled predictive models, and API directory and files.
 

@@ -4,7 +4,7 @@ This directory contains all directories and files used in the creation of the DS
 
 ## Contents
 
-*vis.py* —— API endpoint instance created by labs 25 to send a choropleth visualization to the web team. Labs 27 didn't use or explore this much.
+*viz.py* —— API endpoint instance created by labs 25 to send a choropleth visualization to the web team. Labs 27 didn't use or explore this much.
 
 *update.py* —— API endpoint instance created by labs 25 to update the backlog.csv file in the projects directory. Labs 27 didn't use or explore this much.
 
