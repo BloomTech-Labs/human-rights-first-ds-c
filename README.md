@@ -51,16 +51,16 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 - FastAPI
 - AWS Elastic Beanstalk
 
-#### _Data Science goes here_
+### Why we made our tech stack decisions:
 
 - Wanted to gain insight to AWS
 - Docker makes environments easier
 - FastAPI has been gaining traction over Flask
 
-🚫List the rest of the data science features and libraries in the same format as the framework above.
+### Libraries used:
 
 - Pandas
-- Seaborne
+- Seaborn
 - spacy
 - nltk
 - PRAW
