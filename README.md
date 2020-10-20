@@ -31,21 +31,21 @@ You can find the deployed project at [Human Rights First Police Brutality](https
 
 ## Project Overview
 
-1️⃣ [Trello Board](https://trello.com/b/QWXanExQ/team-c-2009)
+[Trello Board](https://trello.com/b/QWXanExQ/team-c-2009)
 
-1️⃣ [Product Canvas](https://whimsical.com/8sQcpjw3K2XdAiM9aeMkft)
+[Product Canvas](https://whimsical.com/8sQcpjw3K2XdAiM9aeMkft)
 
 Our team is developing an interactive map that identifies potential instances of police use of force across the United States of America for Human Rights First, an independent advocacy and action organization.
 
 We're pulling data from similiar APIs(All locations V2 - https://raw.githubusercontent.com/2020PB/police-brutality/data_build/all-locations-v2.json, 846- https://api.846policebrutality.com/api/incidents) and from Twitter and Reddit. We want to identify aggregate these instances.
 
-### 4️⃣ Key Features
+### Key Features
 
 - User can browse incident map
 - User can view specific instances with original source links
 - User can view map with various filters
 
-## 1️⃣ Tech Stack
+## Tech Stack
 
 ### Data Science API built using:
 
@@ -85,15 +85,15 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 
 # APIs
 
-## 2️⃣ Data Science API
+## Data Science API
 
 We are sending json objects to the backend with information about instances of police use of force. This information includes location data (city, state, and geocode) and relevant details about the incident, like the type of force that was used.
 
-## 2️⃣ PRAW
+## PRAW
 
 PRAW, The Python Reddit API Wrapper, makes it easy for users to analyze Reddit data. We used PRAW to scrape Reddit for potential instances of police of force.
 
-# 3️⃣ Environment Variables
+# Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
@@ -101,7 +101,7 @@ In order for the app to function correctly, the user must set up their own envir
     *  PRAW_CLIENT_SECRET - keys for Reddit API
     *  PRAW_USER_AGENT - keys for Reddit API
 
-# 5️⃣ Content Licenses
+# Content Licenses
 
 🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
 
@@ -110,11 +110,11 @@ In order for the app to function correctly, the user must set up their own envir
 | doodles.png    | Nicole Bennett   | [Creative Commons](https://www.toptal.com/designers/subtlepatterns/doodles/) |
 | rings.svg      | Sam Herbert      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
 
-# 4️⃣ Testing
+# Testing
 
 🚫Document what you used for testing and why
 
-# 4️⃣ Installation Instructions
+# Installation Instructions
 
 We used Docker for ease of use when dealing with environmental dependancies 
 
