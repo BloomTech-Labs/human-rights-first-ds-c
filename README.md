@@ -122,6 +122,18 @@ We used Docker for ease of use when dealing with environmental dependancies
     * typecheck - runs the TypeScript compiler
     * build - creates a build of the application
     * start - starts the production server after a build is created
+    
+    * typecheck - runs the TypeScript compiler
+    * build - creates a build of the application
+    * start - starts the production server after a build is created
+    
+    * typecheck - runs the TypeScript compiler
+    * build - creates a build of the application
+    * start - starts the production server after a build is created
+
+    * typecheck - runs the TypeScript compiler
+    * build - creates a build of the application
+    * start - starts the production server after a build is created
     * test - runs tests in **tests** directory \* eject - copy the configuration files and dependencies into the project so you have full control over them
 
 # Contributing
@@ -163,4 +175,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Backend Documentation](🚫https://github.com/Lambda-School-Labs/Labs27-C-HRF-BE/blob/main/README.md) for details on the backend of our project.
+See [Backend Documentation](https://github.com/Lambda-School-Labs/Labs27-C-HRF-BE/blob/main/README.md) for details on the backend of our project.
