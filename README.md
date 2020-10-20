@@ -16,8 +16,6 @@ You can find the deployed project at [Human Rights First Police Brutality](https
 <br>
 <br>
 
-🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
-
 ![fastapi](https://img.shields.io/badge/fastapi-0.60.1-blue)
 ![pandas](https://img.shields.io/badge/pandas-1.1.0-blueviolet)
 ![plotly](https://img.shields.io/badge/plotly-4.9.0-brightgreen)
@@ -29,9 +27,7 @@ You can find the deployed project at [Human Rights First Police Brutality](https
 ![spacy](https://img.shields.io/badge/spacy-2.3.2-lightgrey)
 ![newspaper3k](https://img.shields.io/badge/newspaper3k-0.2.8-9cf)
 ![fastapi-utils](https://img.shields.io/badge/fastapi--utils-0.2.1-informational)
-[![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-11.3.20-yellowgreen)
-
-🚫 more info on using badges [here](https://github.com/badges/shields)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-11.3.20-yellowgreen)
 
 ## Project Overview
 
