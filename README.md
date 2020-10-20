@@ -29,11 +29,7 @@ You can find the deployed project at [Human Rights First Police Brutality](https
 ![spacy](https://img.shields.io/badge/spacy-2.3.2-lightgrey)
 ![newspaper3k](https://img.shields.io/badge/newspaper3k-0.2.8-9cf)
 ![fastapi-utils](https://img.shields.io/badge/fastapi--utils-0.2.1-informational)
-![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-11.3.20-yellowgreen)
-
-![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](netlify link goes in these parenthesis)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-11.3.20-yellowgreen)
 
 🚫 more info on using badges [here](https://github.com/badges/shields)
 
