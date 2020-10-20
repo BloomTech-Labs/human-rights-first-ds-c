@@ -108,11 +108,13 @@ In order for the app to function correctly, the user must set up their own envir
 | Image Filename | Source / Creator | License                                                                      |
 | -------------- | ---------------- | ---------------------------------------------------------------------------- |
 | doodles.png    | Nicole Bennett   | [Creative Commons](https://www.toptal.com/designers/subtlepatterns/doodles/) |
-| rings.svg      | Sam Herbert      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
+| rings.svg      | Griffin Wilson      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
 
 # Testing
 
 🚫Document what you used for testing and why
+
+We tested the classifier on sets of 100-1000 incidents at a time, our aim was in precision as to minimize false incidents included. 
 
 # Installation Instructions
 
