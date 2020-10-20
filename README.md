@@ -25,10 +25,10 @@ You can find the deployed project at [Human Rights First Police Brutality](https
 ![praw](https://img.shields.io/badge/praw-7.1.0-red)
 ![python-dotenv](https://img.shields.io/badge/python--dotenv-0.14.0-green)
 ![beautifulsoup4](https://img.shields.io/badge/beautifulsoup4-4.9.1-orange)
-![scikit-learn](https://img.shields.io/badge/scikit-learn-0.23.2-yellow)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-0.23.2-yellow)
 ![spacy](https://img.shields.io/badge/spacy-2.3.2-lightgrey)
 ![newspaper3k](https://img.shields.io/badge/newspaper3k-0.2.8-9cf)
-![fastapi-utils](https://img.shields.io/badge/fastapi-utils-0.2.1-informational)
+![fastapi-utils](https://img.shields.io/badge/fastapi--utils-0.2.1-informational)
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-11.3.20-yellowgreen)
 
 ![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
