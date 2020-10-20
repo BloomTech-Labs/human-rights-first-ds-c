@@ -69,7 +69,7 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 
 #### Data Science API deployed to AWS
 
-#### [Back end](🚫link to back end repo here) built using:
+#### [Back end](https://github.com/Lambda-School-Labs/Labs27-C-HRF-BE/blob/main/README.md) built using:
 
 #### 🚫 back end framework goes here (link to BE REPO)
 
