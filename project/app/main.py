@@ -2,8 +2,6 @@ from fastapi import FastAPI, APIRouter, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from fastapi_utils.tasks import repeat_every
-from app.api import predict, viz, getdata, senddata # For deployment
-# from api import predict, viz, getdata#, senddata # For local environment
 from pydantic import BaseModel, Field, validator
 import pandas as pd
 import praw
@@ -17,22 +15,31 @@ import spacy
 from collections import Counter
 from datetime import datetime
 from dotenv import load_dotenv
-
+# Use try/except to catch a pathway error that occurs differently between local environment and deployment
+try: # For deployment
+    from app.api import getdata  #, predict, viz  # These were not used in our product. Comment back in if/when used
+except: # For local environment
+    from api import getdata  #, predict, viz  # These were not used in our product. Comment back in if/when used
 
 # set up various things to be loaded outside of the function
-# geolocation data
+# pathway for geolocation data set up[]
 locs_path = os.path.join(os.path.dirname(
     __file__), '..', 'cities_states.csv')
 locs_df = pd.read_csv(locs_path)
 
+# Function to lowercase all text to avoid varying case issues
 def lowerify(text):
     # fix up geolocation dataframe a little
     return text.lower()
 
+# Drop 'Unnamed: 0' column and 'country' column from dataframe
 locs_df = locs_df.drop(columns=['Unnamed: 0', 'country'])
+# Apply lowerify function to all cities in dataframe
 locs_df['city_ascii'] = locs_df['city_ascii'].apply(lowerify)
+# Apply lowerify function to all states in dataframe
 locs_df['admin_name'] = locs_df['admin_name'].apply(lowerify)
 
+# Create dictionary for state/city mapping
 states_map = {}
 # for each state, map their respective cities
 for state in list(locs_df.admin_name.unique()):
@@ -41,12 +48,13 @@ for state in list(locs_df.admin_name.unique()):
 
 # police brutality indentifying nlp
 model_path = os.path.join(os.path.dirname(
-    __file__), '..', 'model.pkl')
+    __file__), '..', 'hrfc_rfmodel_v1.pkl')
 model_file = open(model_path, 'rb')
 pipeline = pickle.load(model_file)
 model_file.close()
 
 # local csv backlog path
+# Location that any newly pulled data will be saved to
 backlog_path = os.path.join(os.path.dirname(
     __file__), '..', 'backlog.csv'
 )
@@ -56,6 +64,7 @@ nlp = spacy.load('en_core_web_sm')
 
 load_dotenv()
 
+### Rename the following to modify the name/description/etc seen on the FastAPI documentation page 
 app = FastAPI(
     title='Labs 27 Human Rights First-C DS API',
     description='Returns incident data from a pool of datasets run through a machine learning model.',
@@ -63,12 +72,17 @@ app = FastAPI(
     docs_url='/',
 )
 
-app.include_router(predict.router)
-app.include_router(viz.router)
+
+# app.include_router(predict.router)  # Not used by labs 27 but left in for future reference/use
+# app.include_router(viz.router)  # Not used by labs 27 but left in for future reference/use
 app.include_router(getdata.router)
-# app.include_router(senddata.router)
 
-
+# The following is run upon app startup
+"""This was not thoroughly explored or used by labs 27 as our focus was on getting accurate data cleaned,
+explored, and sent to web. Created by labs 25, it seems to be their method of collecting new data from Reddit,
+cleaning the data and performing some feature engineering before saving it to the backlog.csv file. We ran this a
+couple of times and couldn't seem to get more than 1 new instance pulled. Maybe something that can be worked on 
+by future labs teams."""
 @app.on_event('startup')
 @repeat_every(seconds=60*60*24)  # 24 hours
 def run_update() -> None:
@@ -88,6 +102,7 @@ def run_update() -> None:
     )
     # Grab data from reddit
     data = []
+    # Pull from reddit using the format: reddit.subreddit(<subreddit name>).<sort posts by keyword>(limit=<number of posts that you want to pull>)
     for submission in reddit.subreddit("news").hot(limit=100):
         data.append([submission.id, submission.title, submission.url])
     # construct a dataframe with the data
