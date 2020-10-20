@@ -42,11 +42,9 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 
 ### 4️⃣ Key Features
 
-- feature one
-- feature two
-- feature three
-- feature four
-- feature five
+- User can browse incident map
+- User can view specific instances with original source links
+- User can view map with various filters
 
 ## 1️⃣ Tech Stack
 
@@ -68,7 +66,7 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 🚫List the rest of the data science features and libraries in the same format as the framework above.
 
 - Pandas
-- scikit-learn
+- Seaborne
 - spacy
 - nltk
 - PRAW
@@ -101,15 +99,9 @@ PRAW, The Python Reddit API Wrapper, makes it easy for users to analyze Reddit d
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
-🚫These are just examples, replace them with the specifics for your app
-
     *  PRAW_CLIENT_ID  - keys for Reddit API
     *  PRAW_CLIENT_SECRET - keys for Reddit API
     *  PRAW_USER_AGENT - keys for Reddit API
-    *  TWEEPY_CONSUMER - keys for Twitter API
-    *  TWEEPY_SECRET - keys for Twitter API
-    *  TWEEPY_ACCESS - keys for Twitter API
-    *  TWEEPY_ACCESS_SECRET - keys for Twitter API
 
 # 5️⃣ Content Licenses
 
@@ -127,6 +119,8 @@ In order for the app to function correctly, the user must set up their own envir
 # 4️⃣ Installation Instructions
 
 🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
+
+We used Docker for ease of use when dealing with environmental dependancies 
 
 ## Other Scripts
 
