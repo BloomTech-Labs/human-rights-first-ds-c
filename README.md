@@ -18,11 +18,19 @@ You can find the deployed project at [Human Rights First Police Brutality](https
 
 🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
 
-![Python](https://img.shields.io/badge/Python-3.7-green)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.60.1-blue)
+![fastapi](https://img.shields.io/badge/fastapi-0.60.1-blue)
+![pandas](https://img.shields.io/badge/pandas-1.1.0-blueviolet)
+![plotly](https://img.shields.io/badge/plotly-4.9.0-brightgreen)
+![uvicorn](https://img.shields.io/badge/uvicorn-0.11.8-ff69b4)
+![praw](https://img.shields.io/badge/praw-7.1.0-red)
+![python-dotenv](https://img.shields.io/badge/python--dotenv-0.14.0-green)
+![beautifulsoup4](https://img.shields.io/badge/beautifulsoup4-4.9.1-orange)
+![scikit-learn](https://img.shields.io/badge/scikit-learn-0.23.2-yellow)
+![spacy](https://img.shields.io/badge/spacy-2.3.2-lightgrey)
+![newspaper3k](https://img.shields.io/badge/newspaper3k-0.2.8-9cf)
+![fastapi-utils](https://img.shields.io/badge/fastapi-utils-0.2.1-informational)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-11.3.20-yellowgreen)
 
-![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
-![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
 ![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](netlify link goes in these parenthesis)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
