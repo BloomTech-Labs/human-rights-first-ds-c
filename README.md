@@ -71,8 +71,6 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 
 #### [Back end](https://github.com/Lambda-School-Labs/Labs27-C-HRF-BE/blob/main/README.md) built using:
 
-#### 🚫 back end framework goes here (link to BE REPO)
-
 - point one
 - point two
 - point three
