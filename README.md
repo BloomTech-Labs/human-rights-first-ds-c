@@ -2,7 +2,7 @@
 
 # 1️⃣ Human Rights First Police Use of Force Map
 
-1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
+1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](https://main.d17v0exvwwwzgz.amplifyapp.com/).
 
 ## 4️⃣ Contributors
 
