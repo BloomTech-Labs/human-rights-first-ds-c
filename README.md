@@ -1,9 +1,5 @@
 🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline, feel free to add your own flare to it.
 
-🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be completed by. Make sure to delete the numbers by the end of Labs.
-
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
 # 1️⃣ Human Rights First Police Use of Force Map
 
 1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
@@ -56,8 +52,6 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 - AWS Elastic Beanstalk
 
 #### _Data Science goes here_
-
-🚫 Why did you choose this framework?
 
 - Wanted to gain insight to AWS
 - Docker makes environments easier
@@ -117,8 +111,6 @@ In order for the app to function correctly, the user must set up their own envir
 🚫Document what you used for testing and why
 
 # 4️⃣ Installation Instructions
-
-🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
 
 We used Docker for ease of use when dealing with environmental dependancies 
 
