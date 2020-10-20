@@ -107,8 +107,7 @@ In order for the app to function correctly, the user must set up their own envir
 
 | Image Filename | Source / Creator | License                                                                      |
 | -------------- | ---------------- | ---------------------------------------------------------------------------- |
-| doodles.png    | Nicole Bennett   | [Creative Commons](https://www.toptal.com/designers/subtlepatterns/doodles/) |
-| rings.svg      | Griffin Wilson      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
+| name1.svg      | Griffin Wilson   | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
 
 # Testing
 
