@@ -18,4 +18,5 @@ for i in range(len(sources_df)):
 
 # print(sources_df["desc"].head(25))
 # Create csv file from dataframe
-sources_df.to_csv("all_sources_geoed.csv")
+# sources_df.to_csv("all_sources_geoed.csv")
+print(sources_df.sort_values(by=sources_df["date"], axis=1, ascending=True))

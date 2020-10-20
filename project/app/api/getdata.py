@@ -27,6 +27,9 @@ async def getdata():
         df['src'][i] = ast.literal_eval(df['src'][i])
         df['tags'][i] = ast.literal_eval(df['tags'][i])
 
+    df = df.sort_values(by="date", ascending=False)
+    df = df.head(100)
+
     """
     Convert data to useable json format
     ### Response
