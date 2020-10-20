@@ -68,6 +68,9 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 - nltk
 - PRAW
 - Plotly
+- spacy
+- newspaper3k
+
 
 
 #### Data Science API deployed to AWS
