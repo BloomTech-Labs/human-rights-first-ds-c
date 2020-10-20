@@ -19,6 +19,7 @@ You can find the deployed project at [Human Rights First Police Brutality](https
 🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
 
 ![Python](https://img.shields.io/badge/Python-3.7-green)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.60.1-blue)
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
