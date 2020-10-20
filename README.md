@@ -1,10 +1,10 @@
 🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline, feel free to add your own flare to it.
 
-# 1️⃣ Human Rights First Police Use of Force Map
+# Human Rights First Police Use of Force Map
 
-1️⃣ You can find the deployed project at [Human Rights First Police Brutality](https://main.d17v0exvwwwzgz.amplifyapp.com/).
+You can find the deployed project at [Human Rights First Police Brutality](https://main.d17v0exvwwwzgz.amplifyapp.com/).
 
-## 4️⃣ Contributors
+## Contributors
 
 
 |                                                      [Griffin Wilson](https://github.com/Griffinw15/)                                                       |                                                       [Kristine Wang](https://github.com/KristineYW/)                                                        |                                                      [Daniel Benson](https://github.com/Daniel-Benson-Poe/)                                                       |                                                                                                               |                                                                                                             |
