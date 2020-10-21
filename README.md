@@ -71,8 +71,6 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 - spacy
 - newspaper3k
 
-
-
 #### Data Science API deployed to AWS
 
 #### [Back end](https://github.com/Lambda-School-Labs/Labs27-C-HRF-BE/blob/main/README.md) built using:
@@ -80,8 +78,6 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 - point one
 - point two
 - point three
-
-🚫 List the rest of the back end end features and libraries in the same format as the framework above
 
 # APIs
 
@@ -103,15 +99,11 @@ In order for the app to function correctly, the user must set up their own envir
 
 # Content Licenses
 
-🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
-
 | Image Filename | Source / Creator | License                                                                      |
 | -------------- | ---------------- | ---------------------------------------------------------------------------- |
 | name1.svg      | Griffin Wilson   | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
 
 # Testing
-
-🚫Document what you used for testing and why
 
 We tested the classifier on sets of 100-1000 incidents at a time, our aim was in precision as to minimize false incidents included. 
 
@@ -120,8 +112,6 @@ We tested the classifier on sets of 100-1000 incidents at a time, our aim was in
 We used Docker for ease of use when dealing with environmental dependancies 
 
 ## Scripts
-
-🚫replace these examples with your own
 
     Get AWS credentials
     
@@ -143,11 +133,11 @@ We used Docker for ease of use when dealing with environmental dependancies
     
     Then use the EB CLI:
     
-    * git add --all -> runs the TypeScript compiler
-    * git commit -m "Your commit message" -> creates a build of the application
-    * eb init -p docker YOUR-APP-NAME --region us-east-1 -> starts the production server after a build is created
-    * eb create YOUR-APP-NAME -> runs the TypeScript compiler
-    * eb open -> creates a build of the application
+    * git add --all 
+    * git commit -m "Your commit message" 
+    * eb init -p docker YOUR-APP-NAME --region us-east-1 
+    * eb create YOUR-APP-NAME 
+    * eb open 
     
     Then use AWS Route 53 to set up a domain name with HTTPS for your DS API
     
