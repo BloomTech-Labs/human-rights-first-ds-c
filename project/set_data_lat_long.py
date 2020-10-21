@@ -16,7 +16,5 @@ sources_df = sources_df.drop(columns=["Unnamed: 0"])
 for i in range(len(sources_df)):
     sources_df["desc"][i] = str(sources_df["desc"][i]).replace("\n", " ")
 
-# print(sources_df["desc"].head(25))
 # Create csv file from dataframe
-# sources_df.to_csv("all_sources_geoed.csv")
-print(sources_df.sort_values(by=sources_df["date"], axis=1, ascending=True))
+sources_df.to_csv("all_sources_geoed.csv")
