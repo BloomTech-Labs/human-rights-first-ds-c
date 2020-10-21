@@ -74,9 +74,11 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 
 #### [Back end](https://github.com/Lambda-School-Labs/Labs27-C-HRF-BE/blob/main/README.md) built using:
 
-- point one
-- point two
-- point three
+-
+
+#### [Front end](https://github.com/Lambda-School-Labs/Labs27-C-HRF-FE) built using:
+
+-
 
 # APIs
 
@@ -167,7 +169,7 @@ Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it 
 
 We would love to hear from you about new features which would improve this app and further the aims of our project. Please provide as much detail and information as possible to show us why you think your new feature should be implemented.
 
-### Pull Requests4
+### Pull Requests
 
 If you have developed a patch, bug fix, or new feature that would improve this app, please submit a pull request. It is best to communicate your ideas with the developers first before investing a great deal of time into a pull request to ensure that it will mesh smoothly with the project.
 
