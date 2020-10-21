@@ -18,21 +18,24 @@ from dotenv import load_dotenv
 # router for fastapi
 router = APIRouter()
 
-# geolocation data
+# geolocation dataset; useful for creating location and geolocation data
 locs_path = os.path.join(os.path.dirname(
     __file__), '..', '..', 'cities_states.csv')
 locs_df = pd.read_csv(locs_path)
 
-
+# Sets all text to lowercase to avoid any case differences
 def lowerify(text):
     # fix up geolocation dataframe a little
     return text.lower()
 
-
+# Drop Unnamed: 0 column and 'country' column
 locs_df = locs_df.drop(columns=['Unnamed: 0', 'country'])
+# Apply lowerify function to all city names
 locs_df['city_ascii'] = locs_df['city_ascii'].apply(lowerify)
+# Apply lowerify function to all state names
 locs_df['admin_name'] = locs_df['admin_name'].apply(lowerify)
 
+# Create state/city mapper
 states_map = {}
 # for each state, map their respective cities
 for state in list(locs_df.admin_name.unique()):
@@ -46,7 +49,7 @@ model_file = open(model_path, 'rb')
 pipeline = pickle.load(model_file)
 model_file.close()
 
-# local csv backlog path
+# local csv backlog path used to save the newly pulled in data
 backlog_path = os.path.join(os.path.dirname(
     __file__), '..', '..', 'backlog.csv'
 )
@@ -55,7 +58,6 @@ backlog_path = os.path.join(os.path.dirname(
 nlp = spacy.load('en_core_web_sm')
 
 load_dotenv()
-
 
 @router.get('/update')
 async def update():
@@ -75,8 +77,9 @@ async def update():
     )
     # Grab data from reddit
     data = []
+    # Pull from reddit using the format: reddit.subreddit(<subreddit name>).<sort posts by keyword>(limit=<number of posts that you want to pull>)
     for submission in reddit.subreddit("news").hot(limit=100):
-        data.append([submission.id, submission.title, submission.url])
+        data.append([submission.id, submission.title, submission.url])  # Append the post's id, title, and url to a list within the data list
     # construct a dataframe with the data
     col_names = ['id', 'title', 'url']
     df = pd.DataFrame(data, columns=col_names)

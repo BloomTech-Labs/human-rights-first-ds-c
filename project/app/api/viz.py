@@ -4,7 +4,8 @@ import plotly.express as px
 
 router = APIRouter()
 
-
+# Created by labs 25 to send visualization to the web team. 
+# Labs 27 didn't bother using this but decided to leave it for future reference.
 @router.get('/viz/{statecode}')
 async def viz(statecode: str):
     """
