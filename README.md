@@ -119,26 +119,45 @@ We tested the classifier on sets of 100-1000 incidents at a time, our aim was in
 
 We used Docker for ease of use when dealing with environmental dependancies 
 
-## Other Scripts
+## Scripts
 
 🚫replace these examples with your own
 
-    * typecheck - runs the TypeScript compiler
-    * build - creates a build of the application
-    * start - starts the production server after a build is created
+    Get AWS credentials
     
-    * typecheck - runs the TypeScript compiler
-    * build - creates a build of the application
-    * start - starts the production server after a build is created
+    Get your AWS access keys
     
-    * typecheck - runs the TypeScript compiler
-    * build - creates a build of the application
-    * start - starts the production server after a build is created
-
-    * typecheck - runs the TypeScript compiler
-    * build - creates a build of the application
-    * start - starts the production server after a build is created
-    * test - runs tests in **tests** directory \* eject - copy the configuration files and dependencies into the project so you have full control over them
+    Install AWS Command Line Interface
+    
+    * aws configure -> configures AWS CLI
+    * pip install pipx -> installs pipx
+    * pipx install awsebcli -> installs AWS Elastic BeanStalk CLI
+    
+    Follow AWS EB docs: Use Docker to build the image locally, test it locally, then push it to Docker Hub
+    
+    * docker build -f project/Dockerfile -t YOUR-DOCKER-HUB-ID/YOUR-IMAGE-NAME ./project 
+    * docker login 
+    * docker push YOUR-DOCKER-HUB-ID/YOUR-IMAGE-NAME 
+    
+    Edit the image name in Dockerrun.aws.json then replace YOUR-DOCKER-HUB-ID/YOUR-IMAGE-NAME with your values
+    
+    Then use the EB CLI:
+    
+    * git add --all -> runs the TypeScript compiler
+    * git commit -m "Your commit message" -> creates a build of the application
+    * eb init -p docker YOUR-APP-NAME --region us-east-1 -> starts the production server after a build is created
+    * eb create YOUR-APP-NAME -> runs the TypeScript compiler
+    * eb open -> creates a build of the application
+    
+    Then use AWS Route 53 to set up a domain name with HTTPS for your DS API
+    
+    Redeploy:
+    
+    * git commit ... 
+    * docker build ... 
+    * docker push ... 
+    * eb deploy 
+    * eb open 
 
 # Contributing
 
