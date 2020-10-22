@@ -98,7 +98,7 @@ In order for the app to function correctly, the user must set up their own envir
 
 | Image Filename | Source / Creator | License                                                                      |
 | -------------- | ---------------- | ---------------------------------------------------------------------------- |
-| name1.svg      | Griffin Wilson   | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
+| Nopic.yet      | Griffin Wilson   | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
 
 # Testing
 
