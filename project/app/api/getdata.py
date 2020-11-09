@@ -26,7 +26,7 @@ async def getdata():
     #print(DB_URL)
 
     # df = pd.read_csv(locs_path)
-    DB_CONN = os.getenv('DBURLS')
+    DB_CONN = os.environ['DBURLS']
     pg_conn = psycopg2.connect(DB_CONN)
     pg_curs = pg_conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     Q = """SELECT * FROM police_force;"""
