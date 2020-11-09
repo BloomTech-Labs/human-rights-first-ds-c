@@ -20,13 +20,11 @@ async def getdata():
     # Path to dataset used in our endpoint
     # locs_path = os.path.join(os.path.dirname(
     #     __file__), '..', '..', 'all_sources_geoed.csv')
-
-    router = APIRouter()
     #DB_URL = os.getenv('DBURL')
     #print(DB_URL)
 
     # df = pd.read_csv(locs_path)
-    DB_CONN = os.getenv('DBURLS')
+    DB_CONN = os.environ['DBURLS']
     print("ConnURL: ",DB_CONN)
     pg_conn = psycopg2.connect('')
     #pg_conn = psycopg2.connect('dbname={}'.format(os.getenv('DBURLS')))
