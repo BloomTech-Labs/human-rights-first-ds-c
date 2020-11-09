@@ -26,7 +26,7 @@ async def getdata():
     #print(DB_URL)
 
     # df = pd.read_csv(locs_path)
-    DB_CONN = os.getenv('DBURL')
+    DB_CONN = os.getenv('DBURLS')
     pg_conn = psycopg2.connect(DB_CONN)
     pg_curs = pg_conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     Q = """SELECT * FROM police_force;"""
@@ -53,4 +53,4 @@ async def getdata():
     # result = df.to_json(orient="records")
     # Parse the jsonified data removing instances of '\"' making it difficult for backend to collect the data
     parsed = json.loads(results.replace('\"', '"'))
-    return DB_CONN
+    return parsed
