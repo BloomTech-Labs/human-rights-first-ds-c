@@ -14,7 +14,7 @@ router = APIRouter()
 @router.get('/getdata')
 async def getdata():
     '''
-    Get jsonified dataset from all_sources_geoed.csv
+    Get jsonified dataset from Database
     '''
 
     # Path to dataset used in our endpoint
@@ -53,4 +53,4 @@ async def getdata():
     # result = df.to_json(orient="records")
     # Parse the jsonified data removing instances of '\"' making it difficult for backend to collect the data
     parsed = json.loads(results.replace('\"', '"'))
-    return parsed
+    return DB_CONN
