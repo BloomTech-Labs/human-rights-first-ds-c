@@ -27,6 +27,7 @@ async def getdata():
 
     # df = pd.read_csv(locs_path)
     DB_CONN = os.getenv('DBURLS')
+    print("ConnURL: ",DB_CONN)
     pg_conn = psycopg2.connect('')
     #pg_conn = psycopg2.connect('dbname={}'.format(os.getenv('DBURLS')))
     pg_curs = pg_conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
