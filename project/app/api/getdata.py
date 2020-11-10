@@ -8,6 +8,7 @@ import json
 import ast
 import psycopg2
 import psycopg2.extras
+import datetime
 
 router = APIRouter()
 
@@ -16,6 +17,9 @@ async def getdata():
     '''
     Get jsonified dataset from Database
     '''
+    def converter(o):
+        if isinstance(o,datetime.datetime):
+            return o.__str__()
 
     # Path to dataset used in our endpoint
     # locs_path = os.path.join(os.path.dirname(
@@ -31,9 +35,11 @@ async def getdata():
     pg_curs = pg_conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     Q = """SELECT * FROM police_force;"""
     pg_curs.execute(Q)
-    results = json.dumps(pg_curs.fetchall(),indent=2,default=str)
+    #results = json.dumps(pg_curs.fetchall(),default=converter)
+    results = pg_curs.fetchall()
     pg_curs.close()
     pg_conn.close()
+    
     # print(results)
     # Fix issue where "Unnamed: 0" created when reading in the dataframe
     # df = df.drop(columns="Unnamed: 0")
@@ -52,5 +58,11 @@ async def getdata():
     # Initial conversion to json - use records to jsonify by instances (rows)
     # result = df.to_json(orient="records")
     # Parse the jsonified data removing instances of '\"' making it difficult for backend to collect the data
-    parsed = json.loads(results.replace('\"', '"'))
+    parsed = []
+    for item in results:
+        item['links'] = ast.literal_eval(item['links'])
+        item['tags'] = ast.literal_eval(item['tags'])
+        parsed.append(item)
+    
+    #parsed = json.loads(results.replace('\"', '"'))
     return parsed
