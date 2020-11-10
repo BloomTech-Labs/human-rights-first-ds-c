@@ -14,7 +14,7 @@ from newspaper import Article
 import spacy
 from collections import Counter
 from datetime import datetime
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 # Use try/except to catch a pathway error that occurs differently between local environment and deployment
 try: # For deployment
     from app.api import getdata, predict#, viz  # These were not used in our product. Comment back in if/when used
@@ -62,7 +62,7 @@ backlog_path = os.path.join(os.path.dirname(
 # spacy nlp model
 nlp = spacy.load('en_core_web_sm')
 
-load_dotenv()
+#load_dotenv()
 
 ### Rename the following to modify the name/description/etc seen on the FastAPI documentation page 
 app = FastAPI(

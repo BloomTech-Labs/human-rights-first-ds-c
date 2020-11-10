@@ -24,7 +24,7 @@ async def getdata():
     #print(DB_URL)
 
     # df = pd.read_csv(locs_path)
-    DB_CONN = os.getenv('DBURLS')
+    DB_CONN = os.environ.get('DBURLS')
     print("ConnURL: ",DB_CONN)
     pg_conn = psycopg2.connect(DB_CONN)
     #pg_conn = psycopg2.connect('dbname={}'.format(os.getenv('DBURLS')))
