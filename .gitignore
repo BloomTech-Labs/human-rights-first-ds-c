@@ -4,7 +4,9 @@
 .pytest_cache
 .vscode
 __pycache__
+aws
 aws/
+aws/*
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
