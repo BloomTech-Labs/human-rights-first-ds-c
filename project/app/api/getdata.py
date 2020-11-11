@@ -13,56 +13,33 @@ import datetime
 router = APIRouter()
 
 @router.get('/getdata')
-async def getdata():
+async def getdata(date_added: str = None):
+    print(date_added)
     '''
     Get jsonified dataset from Database
     '''
-    def converter(o):
-        if isinstance(o,datetime.datetime):
-            return o.__str__()
-
-    # Path to dataset used in our endpoint
-    # locs_path = os.path.join(os.path.dirname(
-    #     __file__), '..', '..', 'all_sources_geoed.csv')
-    #DB_URL = os.getenv('DBURL')
-    #print(DB_URL)
-
-    # df = pd.read_csv(locs_path)
     DB_CONN = os.environ.get('DBURLS')
-    print("ConnURL: ",DB_CONN)
     pg_conn = psycopg2.connect(DB_CONN)
-    #pg_conn = psycopg2.connect('dbname={}'.format(os.getenv('DBURLS')))
     pg_curs = pg_conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-    Q = """SELECT * FROM police_force;"""
+    if date_added == None:
+        Q = """SELECT * FROM police_force;"""
+    else:
+        Q = f"""SELECT * FROM police_force WHERE added_on > '{date_added}';"""
+    print(date_added)
+    print(Q)
     pg_curs.execute(Q)
-    #results = json.dumps(pg_curs.fetchall(),default=converter)
     results = pg_curs.fetchall()
     pg_curs.close()
     pg_conn.close()
-    
-    # print(results)
-    # Fix issue where "Unnamed: 0" created when reading in the dataframe
-    # df = df.drop(columns="Unnamed: 0")
-
-    # Removes the string type output from columns src and tags, leaving them as arrays for easier use by backend
-    # for i in range(len(df)):
-    #     df['src'][i] = ast.literal_eval(df['src'][i])
-    #     df['tags'][i] = ast.literal_eval(df['tags'][i])
-
 
     """
     Convert data to useable json format
     ### Response
     dateframe: JSON object
     """
-    # Initial conversion to json - use records to jsonify by instances (rows)
-    # result = df.to_json(orient="records")
-    # Parse the jsonified data removing instances of '\"' making it difficult for backend to collect the data
-    parsed = []
+    #parsed = []
     for item in results:
         item['links'] = ast.literal_eval(item['links'])
         item['tags'] = ast.literal_eval(item['tags'])
-        parsed.append(item)
-    
-    #parsed = json.loads(results.replace('\"', '"'))
-    return parsed
+        #parsed.append(item)
+    return results
