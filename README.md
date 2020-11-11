@@ -72,13 +72,9 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 
 #### Data Science API deployed to AWS
 
-#### [Back end](https://github.com/Lambda-School-Labs/Labs27-C-HRF-BE/blob/main/README.md) built using:
+#### [Back end](https://github.com/Lambda-School-Labs/Labs27-C-HRF-BE/blob/main/README.md) (repo link)
 
--
-
-#### [Front end](https://github.com/Lambda-School-Labs/Labs27-C-HRF-FE) built using:
-
--
+#### [Front end](https://github.com/Lambda-School-Labs/Labs27-C-HRF-FE) (repo link)
 
 # APIs
 
@@ -102,7 +98,7 @@ In order for the app to function correctly, the user must set up their own envir
 
 | Image Filename | Source / Creator | License                                                                      |
 | -------------- | ---------------- | ---------------------------------------------------------------------------- |
-| name1.svg      | Griffin Wilson   | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
+| Nopic.yet      | Griffin Wilson   | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
 
 # Testing
 
