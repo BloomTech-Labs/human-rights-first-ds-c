@@ -24,7 +24,7 @@ async def getdata(date_added: str = None):
     if date_added == None:
         Q = """SELECT * FROM police_force;"""
     else:
-        Q = f"""SELECT * FROM police_force WHERE added_on > '{date_added}';"""
+        Q = f"""SELECT * FROM police_force WHERE added_on >= '{date_added}';"""
     print(date_added)
     print(Q)
     pg_curs.execute(Q)

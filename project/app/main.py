@@ -15,49 +15,20 @@ import spacy
 from collections import Counter
 from datetime import datetime
 from dotenv import load_dotenv
+import json
+import datetime
+import ast
+from spacy.tokenizer import Tokenizer
+#Database Imports for automatic new data
+import psycopg2
+import psycopg2.extras
+
 # Use try/except to catch a pathway error that occurs differently between local environment and deployment
 try: # For deployment
     from app.api import getdata, predict#, viz  # These were not used in our product. Comment back in if/when used
 except: # For local environment
     from api import getdata, predict#, viz  # These were not used in our product. Comment back in if/when used
 
-# set up various things to be loaded outside of the function
-# pathway for geolocation data set up[]
-locs_path = os.path.join(os.path.dirname(
-    __file__), '..', 'cities_states.csv')
-locs_df = pd.read_csv(locs_path)
-
-# Function to lowercase all text to avoid varying case issues
-def lowerify(text):
-    # fix up geolocation dataframe a little
-    return text.lower()
-
-# Drop 'Unnamed: 0' column and 'country' column from dataframe
-locs_df = locs_df.drop(columns=['Unnamed: 0', 'country'])
-# Apply lowerify function to all cities in dataframe
-locs_df['city_ascii'] = locs_df['city_ascii'].apply(lowerify)
-# Apply lowerify function to all states in dataframe
-locs_df['admin_name'] = locs_df['admin_name'].apply(lowerify)
-
-# Create dictionary for state/city mapping
-states_map = {}
-# for each state, map their respective cities
-for state in list(locs_df.admin_name.unique()):
-    states_map[state] = locs_df[locs_df['admin_name']
-                                == state]['city_ascii'].to_list()
-
-# police brutality indentifying nlp
-model_path = os.path.join(os.path.dirname(
-    __file__), '..', 'hrfc_rfmodel_v1.pkl')
-model_file = open(model_path, 'rb')
-pipeline = pickle.load(model_file)
-model_file.close()
-
-# local csv backlog path
-# Location that any newly pulled data will be saved to
-backlog_path = os.path.join(os.path.dirname(
-    __file__), '..', 'backlog.csv'
-)
 
 # spacy nlp model
 nlp = spacy.load('en_core_web_sm')
@@ -83,170 +54,163 @@ explored, and sent to web. Created by labs 25, it seems to be their method of co
 cleaning the data and performing some feature engineering before saving it to the backlog.csv file. We ran this a
 couple of times and couldn't seem to get more than 1 new instance pulled. Maybe something that can be worked on 
 by future labs teams."""
+counter = 0
 @app.on_event('startup')
 @repeat_every(seconds=60*60*24)  # 24 hours
 def run_update() -> None:
-    '''
-    Update backlog database with data from reddit.
-    '''
+    # DB COnnection
+    DB_CONN = DBURLS
+    pg_conn = psycopg2.connect(DB_CONN)
+    pg_curs = pg_conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    Q = """SELECT * FROM police_force;"""
+    pg_curs.execute(Q)
+    results = pg_curs.fetchall()
+    pg_curs.close()
+    #API INFO 
 
-    # globalize these variables because I need to
-    PRAW_CLIENT_ID = os.getenv('PRAW_CLIENT_ID')
-    PRAW_CLIENT_SECRET = os.getenv('PRAW_CLIENT_SECRET')
-    PRAW_USER_AGENT =  os.getenv('PRAW_USER_AGENT')
+    #Read API INFO 
+    r = requests.get(APIURL)
+    data_info = r.json()
+    # count the number of new items on the API. 
+    def check_new_items(db_info,api_info):
+        new_items = []
+        counter = 0
+        for item in api_info['data']:
+            if not any(d['case_id'] == item['id'] for d in db_info):
+                new_items.append(item)
+                counter += 1
+        return counter,new_items
+    stop_words = ["celebrity", "child", "ederly","lgbtq+","homeless", "journalist",
+                  "non-protest","person-with-disability", "medic", "politician",
+                  "pregnant", "property-desctruction", " ","bystander","protester",
+                  "legal-observer", "hide-badge", 'body-cam', "conceal",'elderly'
+                  ]
+    stop = nlp.Defaults.stop_words.union(stop_words)
+    # NOTE: ALL CATEGORIES STRICTLY FOLLOW THE NATIONAL INJUSTICE OF JUSTICE USE-OF-CONTINUM DEFINITIONS
+    # # for more information, visit https://nij.ojp.gov/topics/articles/use-force-continuum
+    VERBALIZATION = ['threaten', 'incitement']
+    EMPTY_HAND_SOFT = ['arrest', 'grab', 'zip-tie', ]
+    EMPTY_HAND_HARD = ['shove', 'push', 'strike', 'tackle', 'beat', 'knee', 'punch',
+                   'throw', 'knee-on-neck', 'kick', 'choke', 'dog', 'headlock']
+    LESS_LETHAL_METHODS = ['less-lethal', 'tear-gas', 'pepper-spray', 'baton',
+                       'projectile', 'stun-grenade', 'pepper-ball',
+                       'tear-gas-canister', 'explosive', 'mace', 'lrad',
+                       'bean-bag', 'gas', 'foam-bullets', 'taser', 'tase',
+                       'wooden-bullet', 'rubber-bullet', 'marking-rounds',
+                       'paintball']
+    LETHAL_FORCE = ['shoot', 'throw', 'gun', 'death', 'live-round', ]
+    UNCATEGORIZED = ['property-destruction', 'abuse-of-power', 'bike',
+                 'inhumane-treatment', 'shield', 'vehicle', 'drive', 'horse',
+                 'racial-profiling', 'spray', 'sexual-assault', ]
+    # UNCATEGORIZED are Potential Stop Words. Need to talk to team.
+    # FUNCTION STARTS HERE, OPTIMIZATION WILL BE NEEDED
+    def preprocessNewData(new_data_json):
+        """
+        Preprocessing function recycling preprocessing functions to mimic the
+        output of the initial dataframe.
+        """
+        # Temp, create a dataframe for easier view. **Consider converting function
+        # # for use with json/dict.
+        df = pd.DataFrame(data=new_data_json)
+        # Rename columns/ Drop irrelevant columns
+        df = df.rename(columns={'name': 'title'}).drop(labels=['edit_at', 'date_text'], axis=1)
+        # Reorder column headers
+        df = df[['date', 'links', 'id', 'city', 'state', 'geolocation', 'title', 'tags', 'description']]
+        # Update the "date" column to timestamps and sort
+        df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
+        df['date'] = df.date.astype(object).where(df.date.notnull(), None)
+        df = df.sort_values(by='date')
+        # Reset index
+        df.reset_index(inplace=True)
+        # Replace the Nan values with the string "None" in the description column
+        # May need to create conditions for variations with the new data (consideration)
+        df['description'] = df['description'].replace({np.NaN: "None"})
+        # Replace the Nan values with the string "None" in the geolocation column
+        # Missing geolocations are mapped as empty strings
+        df['geolocation'] = df['geolocation'].replace({"": np.NaN}).replace({np.NaN: "None"})
+        # Write function to create hyperlinks for the 'links' columns
+        def cleanlinks(url_col):
+            """ Function to convert links from json to a str. Creates hyperlink"""
+            links_out = []
+            for link in url_col:
+                links_out.append(link['url'])
+            return links_out
+        # Apply function to the dataframe 'links' column
+        df['links'] = df['links'].apply(cleanlinks)
+        # Create a latitude (lat) and longitude (lon) column.
+        # Create function to create lat and long from geolocation column
+        def splitGeolocation(item):
+            """
+            Creates two new columns (lat and lon) by separating the dictionaries of
+            geolocations into latitiude and longitude.
+            :col: indexed slice of a column consisting of dictionaries/strings with
+            latitiude and longitude integers
+            :return: latitude column
+            :return: longitude column
+            """
+            lat = []
+            lon = []
+            if isinstance(item, str) and item != 'None':
+                item = item.split(',')
+                lat.append(float(item[0]))
+                lon.append(float(item[1]))
+            elif type(item) == dict:
+                lat.append(float(item['lat']))
+                lon.append(float(item['long']))
+            else:
+                lat.append(None)  # Null values
+                lon.append(None)  # Null values
+            return lat, lon
+        # Call Function
+        df['lat'] = [splitGeolocation(item)[0][0] for item in df['geolocation']]
+        df['long'] = [splitGeolocation(item)[1][0] for item in df['geolocation']]
+        # Drop the geolocation columnsss
+        df = df.drop(labels=['geolocation', 'index'], axis=1)
+        def remove_stops(_list_):
+            keywords = []
+            for keyword in _list_:
+                phrase = []
+                words = keyword.split()
+                for word in words:
+                    if word in stop:
+                        pass
+                    else:
+                        phrase.append(word)
+                phrase = ' '.join(phrase)
+                if len(phrase) > 0:
+                    keywords.append(phrase)
+            return keywords
+        df['tags'] = df['tags'].apply(remove_stops)
+        # Need dummy columns. Create a cleaner function to handle this problem. DJ.
+        df['verbalization'], df['empty_hand_soft'], df['empty_hand_hard'], df['less_lethal_methods'], df['lethal_force'], df['uncategorized'] = df['id'], df['id'], df['id'], df['id'], df['id'], df['id']
+        def Searchfortarget(list, targetl):
+            for target in targetl:
+                res = list.index(target) if target in list else -1  # finds index of target
+                if res == -1:
+                    return 0  # if target is not in list returns -1
+                else:
+                    return 1  # if the target exist it returns
+        def UseofForceContinuumtest(col):
+            for i, row in enumerate(col):
+                df['verbalization'].iloc[i], df['empty_hand_soft'].iloc[i], df['empty_hand_hard'].iloc[i], df['less_lethal_methods'].iloc[i], df['lethal_force'].iloc[i], df['uncategorized'].iloc[i] = Searchfortarget(VERBALIZATION, row), Searchfortarget(EMPTY_HAND_SOFT, row), Searchfortarget(EMPTY_HAND_HARD, row), Searchfortarget(LESS_LETHAL_METHODS, row), Searchfortarget(LETHAL_FORCE, row), Searchfortarget(UNCATEGORIZED, row)
+                # Apply function to the cleaned_tags columns
+            UseofForceContinuumtest(df['tags'])
+        return df.to_dict(orient='records')
+    #Updates to database
+    counter_api,new_items = check_new_items(results,db_info)
+    if new_items:
+        newdata = preprocessNewData(new_items)
+        pg_conn = psycopg2.connect(DB_CONN)
+        pg_curs = pg_conn.cursor()
+        for item in newdata:
+            current_dt = datetime.datetime.today()
+            pg_curs.execute("""INSERT INTO police_force (dates,added_on, links, case_id, city, state,lat,long, title, description, tags,verbalization,empty_Hand_soft, empty_hand_hard, less_lethal_methods, lethal_force, uncategorized) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""",(item['date'],current_dt,str(item['links']),str(item['id']),str(item['city']),str(item['state']),item['lat'],item['long'],str(item['title']),str(item['description']),str(item['tags']),item['verbalization'],item['empty_hand_soft'],item['empty_hand_hard'],item['less_lethal_methods'],item['lethal_force'],item['uncategorized']))
+        pg_conn.commit()
+        pg_curs.close()
+        pg_conn.close()
 
-    reddit = praw.Reddit(
-        client_id=PRAW_CLIENT_ID,
-        client_secret=PRAW_CLIENT_SECRET,
-        user_agent=PRAW_USER_AGENT
-    )
-    # Grab data from reddit
-    data = []
-    # Pull from reddit using the format: reddit.subreddit(<subreddit name>).<sort posts by keyword>(limit=<number of posts that you want to pull>)
-    for submission in reddit.subreddit("news").hot(limit=100):
-        data.append([submission.id, submission.title, submission.url])
-    # construct a dataframe with the data
-    col_names = ['id', 'title', 'url']
-    df = pd.DataFrame(data, columns=col_names)
 
-    # pull the text from each article itself using newspaper3k
-    content_list = []
-    date_list = []
-    # go through each URL and use newspaper3k to extract data
-    for id_url in df['url']:
-        # use newspaper3k to extract text
-        article = Article(id_url)
-        article.download()
-        # if the article doesn't download, the error is thrown in parse()
-        try:
-            article.parse()
-        except:
-            # add null values to show no connection
-            content_list.append(None)
-            date_list.append(None)
-            continue
-        content_list.append(article.text)
-        # this will be null if newspaper3k can't find it
-        date_list.append(article.publish_date)
-    df['text'] = content_list
-    df['date'] = date_list
 
-    # use NLP model to filter posts
-    df['is_police_brutality'] = pipeline.predict(df['title'])
-    df = df[df['is_police_brutality'] == 1]
-    df = df.drop(columns='is_police_brutality')
-
-    # use spaCy to extract location tokens
-    tokens_list = []
-    for text in df['text']:
-        doc = nlp(text.lower())
-        ents = [e.text for e in doc.ents if e.label_ == 'GPE']
-        tokens_list.append(ents)
-    df['tokens'] = tokens_list
-
-    # figure out which city and state the article takes place in
-    city_list = []
-    state_list = []
-    lat_list = []
-    long_list = []
-    for tokens in df['tokens']:
-        # set up Counter
-        c = Counter(tokens)
-
-        # count which states come back the most, if any
-        state_counts = {}
-        for state in states_map:
-            if c[state] > 0:
-                state_counts[state] = c[state]
-
-        # get state(s) that came back the most as dict with lists
-        max_count = 0
-        max_state = None
-
-        for state in state_counts:
-            if state_counts[state] > max_count:
-                max_count = state_counts[state]
-                max_state = {state: {}}
-            elif state_counts[state] == max_count:
-                max_state[state] = {}
-
-        # if no state is found
-        if max_state is None:
-            city_list.append(None)
-            state_list.append(None)
-            lat_list.append(None)
-            long_list.append(None)
-            continue
-
-        max_city = None
-        # get any cities in tokens based on states
-        for state in max_state:  # ideally this should only run once
-            city_counts = {}
-            for city in states_map[state]:
-                if c[city] > 0:
-                    city_counts[city] = c[city]
-            max_state[state] = city_counts
-
-            # get the city/state combo that came back the most
-            max_count = 0
-            for city in city_counts:
-                if city_counts[city] > max_count:
-                    max_count = city_counts[city]
-                    max_city = (city, state)
-
-        # if no city is found
-        if max_city is None:
-            city_list.append(None)
-            state_list.append(None)
-            lat_list.append(None)
-            long_list.append(None)
-            continue
-
-        # the city and state should be known now
-
-        city_list.append(max_city[0].title())
-        state_list.append(max_city[1].title())
-        # now get the geolocation data
-        row = locs_df[(
-            (locs_df['city_ascii'] == max_city[0]) &
-            (locs_df['admin_name'] == max_city[1])
-        )]
-        row = row.reset_index()
-        if row.empty:
-            pass
-        else:
-            lat_list.append(row['lat'][0])
-            long_list.append(row['lng'][0])
-
-    # loop ends, add cities and states onto dataframe
-    df['city'] = city_list
-    df['state'] = state_list
-    df['lat'] = lat_list
-    df['long'] = long_list
-
-    # drop any columns with null entries for location
-    df = df.dropna()
-    df = df.reset_index()
-    df = df.drop(columns='index')
-
-    # cleanup to match 846 api
-    def listify(text):
-        return [text]
-    df['src'] = df['url'].apply(listify)
-    df['desc'] = df['text']
-    df = df.drop(columns=['tokens', 'text'])
-    df = df[[
-        'id', 'state', 'city',
-        'date', 'title', 'desc',
-        'src', 'lat', 'long'
-    ]]
-
-    # save the file to a local csv
-    df.to_csv(backlog_path, index=False, )
-    return HTTPException(
-        200,
-        "Backlog Updated at %s with %s entries" % (datetime.now(), df.shape[0])
-    )
 
 app.add_middleware(
     CORSMiddleware,
