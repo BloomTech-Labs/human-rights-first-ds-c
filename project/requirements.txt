@@ -9,4 +9,5 @@ scikit-learn==0.22.2.post1
 spacy==2.3.2
 newspaper3k==0.2.8
 fastapi-utils==0.2.1
+fastapi_utils==0.2.1
 psycopg2-binary
