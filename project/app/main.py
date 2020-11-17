@@ -49,27 +49,25 @@ app.include_router(predict.router)  # Not used by labs 27 but left in for future
 app.include_router(getdata.router)
 
 # The following is run upon app startup
-"""This was not thoroughly explored or used by labs 27 as our focus was on getting accurate data cleaned,
-explored, and sent to web. Created by labs 25, it seems to be their method of collecting new data from Reddit,
-cleaning the data and performing some feature engineering before saving it to the backlog.csv file. We ran this a
-couple of times and couldn't seem to get more than 1 new instance pulled. Maybe something that can be worked on 
-by future labs teams."""
-counter = 0
+"""The bottom code below runs on app startup and every 24 hours to check for new data.
+   Recommended to separate into more modular functions. Needs to do more testing to see if 
+   it is running every 24 hours, but test shows it is working. for Lab29 to do. """
 @app.on_event('startup')
-@repeat_every(seconds=60*60*24)  # 24 hours
-def run_update() -> None:
-    # DB COnnection
-    DB_CONN = DBURLS
-    pg_conn = psycopg2.connect(DB_CONN)
+@repeat_every(seconds=60*60*24)  # 24 hours Runs Function below every 24 hours. 
+async def run_update() -> None:
+    # DB Connection
+    DB_CONN = os.environ.get('DBURLS') # Gets URL from Enviroment Variable
+    pg_conn = psycopg2.connect(DB_CONN) # Connects to DB
     pg_curs = pg_conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     Q = """SELECT * FROM police_force;"""
     pg_curs.execute(Q)
     results = pg_curs.fetchall()
     pg_curs.close()
-    #API INFO 
 
-    #Read API INFO 
-    r = requests.get(APIURL)
+    #Read API INFO
+    API_CONN = os.environ.get('APIURL') #Gets API URL from environment 
+
+    r = requests.get(API_CONN)
     data_info = r.json()
     # count the number of new items on the API. 
     def check_new_items(db_info,api_info):
@@ -80,14 +78,18 @@ def run_update() -> None:
                 new_items.append(item)
                 counter += 1
         return counter,new_items
+    #Code on the bottom is to pre process /classify data using NLP 
+        
     stop_words = ["celebrity", "child", "ederly","lgbtq+","homeless", "journalist",
                   "non-protest","person-with-disability", "medic", "politician",
                   "pregnant", "property-desctruction", " ","bystander","protester",
                   "legal-observer", "hide-badge", 'body-cam', "conceal",'elderly'
                   ]
     stop = nlp.Defaults.stop_words.union(stop_words)
+
     # NOTE: ALL CATEGORIES STRICTLY FOLLOW THE NATIONAL INJUSTICE OF JUSTICE USE-OF-CONTINUM DEFINITIONS
     # # for more information, visit https://nij.ojp.gov/topics/articles/use-force-continuum
+
     VERBALIZATION = ['threaten', 'incitement']
     EMPTY_HAND_SOFT = ['arrest', 'grab', 'zip-tie', ]
     EMPTY_HAND_HARD = ['shove', 'push', 'strike', 'tackle', 'beat', 'knee', 'punch',
@@ -102,8 +104,10 @@ def run_update() -> None:
     UNCATEGORIZED = ['property-destruction', 'abuse-of-power', 'bike',
                  'inhumane-treatment', 'shield', 'vehicle', 'drive', 'horse',
                  'racial-profiling', 'spray', 'sexual-assault', ]
+
     # UNCATEGORIZED are Potential Stop Words. Need to talk to team.
     # FUNCTION STARTS HERE, OPTIMIZATION WILL BE NEEDED
+
     def preprocessNewData(new_data_json):
         """
         Preprocessing function recycling preprocessing functions to mimic the
@@ -196,8 +200,10 @@ def run_update() -> None:
                 # Apply function to the cleaned_tags columns
             UseofForceContinuumtest(df['tags'])
         return df.to_dict(orient='records')
+
     #Updates to database
-    counter_api,new_items = check_new_items(results,db_info)
+    counter_api,new_items = check_new_items(results,data_info) #Checks for new items
+    # if new_items array is not empty. add data to database
     if new_items:
         newdata = preprocessNewData(new_items)
         pg_conn = psycopg2.connect(DB_CONN)
