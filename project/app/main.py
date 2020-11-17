@@ -53,10 +53,10 @@ app.include_router(getdata.router)
    Recommended to separate into more modular functions. Needs to do more testing to see if 
    it is running every 24 hours, but test shows it is working. for Lab29 to do. """
 @app.on_event('startup')
-@repeat_every(seconds=60*60*24)  # 24 hours Runs Function bellow every 24 hours. 
+@repeat_every(seconds=60*60*24)  # 24 hours Runs Function below every 24 hours. 
 async def run_update() -> None:
     # DB Connection
-    DB_CONN = os.environ.get('DBURLS') # Gets URL from Enviroment variable
+    DB_CONN = os.environ.get('DBURLS') # Gets URL from Enviroment Variable
     pg_conn = psycopg2.connect(DB_CONN) # Connects to DB
     pg_curs = pg_conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     Q = """SELECT * FROM police_force;"""
