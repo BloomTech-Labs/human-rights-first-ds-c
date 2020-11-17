@@ -1,16 +1,16 @@
 
 # Human Rights First Police Use of Force Map
 
-You can find the deployed project at [Human Rights First Police Brutality](https://main.d17v0exvwwwzgz.amplifyapp.com/).
+You can find the deployed project at [Human Rights First Police Brutality](https://c.humanrightsfirst.dev/).
 
 ## Contributors
 
 
-|                                                      [Griffin Wilson](https://github.com/Griffinw15/)                                                       |                                                       [Kristine Wang](https://github.com/KristineYW/)                                                        |                                                      [Daniel Benson](https://github.com/Daniel-Benson-Poe/)                                                       |                                                                                                               |                                                                                                             |
+|                                                      [Dondré Jordan](https://github.com/dondreojordan/)                                                       |                                                       [Santiago Berniz](https://github.com/sberniz/)                                                        |                                                 |                                                                                                               |                                                                                                             |
 | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://media-exp1.licdn.com/dms/image/C5603AQHBdRMfl70c0g/profile-displayphoto-shrink_200_200/0?e=1608163200&v=beta&t=x2kjIpS9INPLMSyc_NNT59uie5td6BOL-3dWae1MCGk" width = "200" />](https://github.com/Griffinw15/) | [<img src="https://media-exp1.licdn.com/dms/image/C5603AQHShEFoe32Lnw/profile-displayphoto-shrink_800_800/0?e=1608163200&v=beta&t=w431sI40V39B3yLsBZguHh8FyW8ybAbw-uAcFL1OXZ0" width="200" />](https://github.com/KristineYW/) | [<img src="https://avatars1.githubusercontent.com/u/55222213?s=400&u=81a5f3241df5769fd8fc5dd5d0c416ed3112f018&v=4" width = "200" />](https://github.com/Daniel-Benson-Poe/) |
-|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Griffinw15/)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/KristineYW/)                             |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Daniel-Benson-Poe/)                           ||
-|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/griffinwilson15/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/kristine-w-lambdads/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/daniel-benson-dsaopls/)                |                
+| [<img src="https://media-exp1.licdn.com/dms/image/C5603AQHBdRMfl70c0g/profile-displayphoto-shrink_200_200/0?e=1608163200&v=beta&t=x2kjIpS9INPLMSyc_NNT59uie5td6BOL-3dWae1MCGk" width = "200" />](https://github.com/dondreojordan/) | [<img src="https://media-exp1.licdn.com/dms/image/C5603AQHShEFoe32Lnw/profile-displayphoto-shrink_800_800/0?e=1608163200&v=beta&t=w431sI40V39B3yLsBZguHh8FyW8ybAbw-uAcFL1OXZ0" width="200" />](https://github.com/sberniz/) |
+|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/dondreojordan/)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/sberniz/)                             |                     
+|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/dondreojordan/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/santiago-berniz/)                 |             |                
 
 <br>
 <br>
@@ -19,7 +19,6 @@ You can find the deployed project at [Human Rights First Police Brutality](https
 ![pandas](https://img.shields.io/badge/pandas-1.1.0-blueviolet)
 ![plotly](https://img.shields.io/badge/plotly-4.9.0-brightgreen)
 ![uvicorn](https://img.shields.io/badge/uvicorn-0.11.8-ff69b4)
-![praw](https://img.shields.io/badge/praw-7.1.0-red)
 ![python-dotenv](https://img.shields.io/badge/python--dotenv-0.14.0-green)
 ![beautifulsoup4](https://img.shields.io/badge/beautifulsoup4-4.9.1-orange)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-0.23.2-yellow)
@@ -72,9 +71,9 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 
 #### Data Science API deployed to AWS
 
-#### [Back end](https://github.com/Lambda-School-Labs/Labs27-C-HRF-BE/blob/main/README.md) (repo link)
+#### [Back end](https://github.com/Lambda-School-Labs/human-rights-first-be-c) (repo link)
 
-#### [Front end](https://github.com/Lambda-School-Labs/Labs27-C-HRF-FE) (repo link)
+#### [Front end](https://github.com/Lambda-School-Labs/human-rights-first-fe-c) (repo link)
 
 # APIs
 
@@ -98,7 +97,7 @@ In order for the app to function correctly, the user must set up their own envir
 
 | Image Filename | Source / Creator | License                                                                      |
 | -------------- | ---------------- | ---------------------------------------------------------------------------- |
-| Nopic.yet      | Griffin Wilson   | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
+| Nopic.yet      | INSERT NAME      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
 
 # Testing
 
