@@ -51,12 +51,13 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 - Docker
 - FastAPI
 - AWS Elastic Beanstalk
-
+- PostgreSQL
 ### Why we made our tech stack decisions:
 
 - Wanted to gain insight to AWS
 - Docker makes environments easier
 - FastAPI has been gaining traction over Flask
+- SQL queries are
 
 ### Libraries used:
 
