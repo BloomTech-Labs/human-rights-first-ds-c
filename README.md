@@ -12,7 +12,7 @@ The Human Rights First Organization is a US-based nonprofit, nonpartisan organiz
 | [Jason Long](https://github.com/jlong5795) | [Dondré Jordan](https://github.com/dondreojordan/) | [Santiago Berniz](https://github.com/sberniz/) | [Mariapaula Trujillo](https://github.com/mtruj013) |
 | :---: | :---: | :---: | :---: | 
 | [<img src="https://avatars3.githubusercontent.com/u/57104675?s=460&u=e7620554469deb924ac378097155cd45590cbdf9&v=4" width = "200" />](https://github.com/jlong5795) | [<img src="https://avatars2.githubusercontent.com/u/66181909?s=460&u=6e8dd07a4ee2d81ea91ff7f7bf92397e25348b43&v=4" width = "200" />](https://github.com/dondreojordan/) | [<img src="https://avatars3.githubusercontent.com/u/6207914?s=460&u=8bfaa068f7942170423371ff10e8f04f09f41e81&v=4" width = "200" />](https://github.com/sberniz/) | [<img src="https://avatars1.githubusercontent.com/u/17607612?s=460&u=1ade9305977ae41910de06971d36c7ebc339ef48&v=4" width = "200" />](https://github.com/mtruj013) |
-| Team Project Lead | Data Scientist | Data Scientist | Web Developer | Web Developer | 
+| TPL | Data Scientist | Data Scientist | Web Developer | Web Developer | 
 |[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jlong5795) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/dondreojordan/) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/sberniz/) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/mtruj013) |
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jasonlong1231/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/dondreojordan/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/santiago-berniz/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/mariapaula-trujillo/) |          
 
@@ -165,8 +165,8 @@ Get and clean data from source(s). Insert processed data into the database. Data
 
 
 # Updates To Repo in Labs 28
-* Using a database instead of a .csv file
-* Added classification features based on associated tag words
+* https://c-ds-labs28.humanrightsfirst.dev/
+* https://hrf-c-api.herokuapp.com/api-docs/
 
 # End Points
 /getdata: Shows all the data in the database.
