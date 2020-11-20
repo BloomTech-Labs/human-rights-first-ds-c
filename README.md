@@ -73,7 +73,7 @@ We're pulling data from similiar APIs(All locations V2 - https://raw.githubuserc
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
     *  DBURLS  - Postgres database credentials
-    *  API URL - API url responsible for updating the database
+    *  APIURL - APIURL is responsible for updating the database
 
 
 ### Content Licenses
@@ -81,11 +81,12 @@ In order for the app to function correctly, the user must set up their own envir
 | Image Filename | Source / Creator | License                                                                      |
 | -------------- | ---------------- | ---------------------------------------------------------------------------- |
 | Nopic.yet      | INSERT NAME      | [MIT](input githandle here)                             |
+
 ### Installation Instructions
 
 We used Docker for ease of use when dealing with environmental dependancies 
 
-### Scripts
+#### Scripts
 
     Get AWS credentials
     
