@@ -10,6 +10,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import pickle
+import numpy as np
 from newspaper import Article
 import spacy
 from collections import Counter
@@ -35,7 +36,8 @@ nlp = spacy.load('en_core_web_sm')
 
 load_dotenv()
 
-### Rename the following to modify the name/description/etc seen on the FastAPI documentation page 
+### Rename the following to modify the name/description/etc seen on the FastAPI documentation page
+counters = 0 
 app = FastAPI(
     title='Labs 28 Human Rights First-C DS API',
     description='Reports inicidents of police use of force in the United States.',
@@ -55,6 +57,10 @@ app.include_router(getdata.router)
 @app.on_event('startup')
 @repeat_every(seconds=60*60*24)  # 24 hours Runs Function bellow every 24 hours. 
 async def run_update() -> None:
+    # Counts number of updates.
+    global counters 
+    print('Update Number:', counters)
+    counters += 1
     # DB Connection
     DB_CONN = os.environ.get('DBURLS') # Gets URL from Enviroment variable
     pg_conn = psycopg2.connect(DB_CONN) # Connects to DB
@@ -197,15 +203,19 @@ async def run_update() -> None:
         def UseofForceContinuumtest(col):
             for i, row in enumerate(col):
                 df['verbalization'].iloc[i], df['empty_hand_soft'].iloc[i], df['empty_hand_hard'].iloc[i], df['less_lethal_methods'].iloc[i], df['lethal_force'].iloc[i], df['uncategorized'].iloc[i] = Searchfortarget(VERBALIZATION, row), Searchfortarget(EMPTY_HAND_SOFT, row), Searchfortarget(EMPTY_HAND_HARD, row), Searchfortarget(LESS_LETHAL_METHODS, row), Searchfortarget(LETHAL_FORCE, row), Searchfortarget(UNCATEGORIZED, row)
-                # Apply function to the cleaned_tags columns
-            UseofForceContinuumtest(df['tags'])
+        # Apply function to the cleaned_tags columns
+        UseofForceContinuumtest(df['tags'])
         return df.to_dict(orient='records')
 
     #Updates to database
     counter_api,new_items = check_new_items(results,data_info) #Checks for new items
+    print('Number of new Items',counter_api)
+    print('New Items: ')
+    
     # if new_items array is not empty. add data to database
     if new_items:
         newdata = preprocessNewData(new_items)
+
         pg_conn = psycopg2.connect(DB_CONN)
         pg_curs = pg_conn.cursor()
         for item in newdata:
@@ -214,6 +224,7 @@ async def run_update() -> None:
         pg_conn.commit()
         pg_curs.close()
         pg_conn.close()
+        print('Update Completed')
 
 
 
