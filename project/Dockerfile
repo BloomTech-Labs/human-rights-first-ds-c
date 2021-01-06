@@ -1,6 +1,6 @@
 # pull official base image
 FROM python:3.8-slim-buster
-
+ENV PYTHONUNBUFFERED 1
 # set working directory
 WORKDIR /usr/src/app
 
